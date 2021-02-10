@@ -23,23 +23,23 @@ public class MainWindow extends JPanel implements ActionListener {
 
     public static JFrame jFrame;
 
-    public static final int SCALE = 26; // розмер клеточки
-    public static final int WIDTH = 25; // скільки клітинок по ширині вікна
-    public static final int HEIGHT = 25; // скільки клітинок по висоті вікна
+    public static final int SCALE = 26; // СЂРѕР·РјРµСЂ РєР»РµС‚РѕС‡РєРё
+    public static final int WIDTH = 25; // СЃРєС–Р»СЊРєРё РєР»С–С‚РёРЅРѕРє РїРѕ С€РёСЂРёРЅС– РІС–РєРЅР°
+    public static final int HEIGHT = 25; // СЃРєС–Р»СЊРєРё РєР»С–С‚РёРЅРѕРє РїРѕ РІРёСЃРѕС‚С– РІС–РєРЅР°
     public Image d;
     public Image a;
     public Image b;
 
     static String rootPath = System.getProperty("user.dir");
-    Snake s = new Snake(5, 6, 5, 5, 5, 4);//координати трьох клітинок змійки
+    Snake s = new Snake(5, 6, 5, 5, 5, 4);//РєРѕРѕСЂРґРёРЅР°С‚Рё С‚СЂСЊРѕС… РєР»С–С‚РёРЅРѕРє Р·РјС–Р№РєРё
     Apple apple = new Apple(Math.abs((int) (Math.random() * MainWindow.WIDTH - 1)),
             Math.abs((int) (Math.random() * MainWindow.HEIGHT - 1)));
 
-    Timer timer = new Timer(300, this); //таймер щоб оновлювалось вікно
+    Timer timer = new Timer(300, this); //С‚Р°Р№РјРµСЂ С‰РѕР± РѕРЅРѕРІР»СЋРІР°Р»РѕСЃСЊ РІС–РєРЅРѕ
 
     public MainWindow() {
-        timer.start();//старт таймера при запуску
-        addKeyListener(new KeyBoard());//додано клавыатуру
+        timer.start();//СЃС‚Р°СЂС‚ С‚Р°Р№РјРµСЂР° РїСЂРё Р·Р°РїСѓСЃРєСѓ
+        addKeyListener(new KeyBoard());//РґРѕРґР°РЅРѕ РєР»Р°РІС‹Р°С‚СѓСЂСѓ
         setFocusable(true);
         loadImages();
     }
@@ -52,55 +52,55 @@ public class MainWindow extends JPanel implements ActionListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //колір фону
+        //РєРѕР»С–СЂ С„РѕРЅСѓ
         g.setColor(Color.DARK_GRAY);
 
-        //заповнення кольором з лівого верхнього кута (початок)
-        //власне розмір заповнення
+        //Р·Р°РїРѕРІРЅРµРЅРЅСЏ РєРѕР»СЊРѕСЂРѕРј Р· Р»С–РІРѕРіРѕ РІРµСЂС…РЅСЊРѕРіРѕ РєСѓС‚Р° (РїРѕС‡Р°С‚РѕРє)
+        //РІР»Р°СЃРЅРµ СЂРѕР·РјС–СЂ Р·Р°РїРѕРІРЅРµРЅРЅСЏ
         g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 
-        //червона зона внизу поля для відображення життя і набраних очків
+        //С‡РµСЂРІРѕРЅР° Р·РѕРЅР° РІРЅРёР·Сѓ РїРѕР»СЏ РґР»СЏ РІС–РґРѕР±СЂР°Р¶РµРЅРЅСЏ Р¶РёС‚С‚СЏ С– РЅР°Р±СЂР°РЅРёС… РѕС‡РєС–РІ
         Color lineColor = new Color(194, 25, 93);
         g.setColor(lineColor);
         g.fillRect(0, HEIGHT * SCALE, WIDTH * SCALE, SCALE);
 
-        //створити шрифт
+        //СЃС‚РІРѕСЂРёС‚Рё С€СЂРёС„С‚
         g.setColor(Color.WHITE);
         Font font = new Font("Calibre", Font.PLAIN, 22);
         g.setFont(font);
 
-        g.drawString("ЖИТТЯ: " + s.life, 0, HEIGHT * SCALE + SCALE - 6);
-        g.drawString("ОЧКИ: " + (s.length - 3), WIDTH * SCALE / 2, HEIGHT * SCALE + SCALE - 6);
+        g.drawString("Р–РРўРўРЇ: " + s.life, 0, HEIGHT * SCALE + SCALE - 6);
+        g.drawString("РћР§РљР: " + (s.length - 3), WIDTH * SCALE / 2, HEIGHT * SCALE + SCALE - 6);
 
-//      drawLines(g); //промальовує лінії на полі(можна забрати коментар при бажанні)
+//      drawLines(g); //РїСЂРѕРјР°Р»СЊРѕРІСѓС” Р»С–РЅС–С— РЅР° РїРѕР»С–(РјРѕР¶РЅР° Р·Р°Р±СЂР°С‚Рё РєРѕРјРµРЅС‚Р°СЂ РїСЂРё Р±Р°Р¶Р°РЅРЅС–)
 
         //apple
         g.drawImage(a, apple.posX * SCALE, apple.posY * SCALE, this);
 
-        //відобразити змійку
+        //РІС–РґРѕР±СЂР°Р·РёС‚Рё Р·РјС–Р№РєСѓ
         for (int l = 1; l < s.length; l++) {
             g.drawImage(d, s.sX[0] * SCALE, s.sY[0] * SCALE, this);
             g.drawImage(b, s.sX[l] * SCALE, s.sY[l] * SCALE, this);
         }
     }
 
-    // метод відображення ліній для клітинок ігрового поля
+    // РјРµС‚РѕРґ РІС–РґРѕР±СЂР°Р¶РµРЅРЅСЏ Р»С–РЅС–Р№ РґР»СЏ РєР»С–С‚РёРЅРѕРє С–РіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
     private void drawLines(Graphics g) {
         for (int x = 0; x <= WIDTH * SCALE; x += SCALE) {
-            g.setColor(Color.LIGHT_GRAY); // цвет полоски
-            g.drawLine(x, 0, x, HEIGHT * SCALE);// малюе полосу вниз по Х(вертикальна)
+            g.setColor(Color.LIGHT_GRAY); // С†РІРµС‚ РїРѕР»РѕСЃРєРё
+            g.drawLine(x, 0, x, HEIGHT * SCALE);// РјР°Р»СЋРµ РїРѕР»РѕСЃСѓ РІРЅРёР· РїРѕ РҐ(РІРµСЂС‚РёРєР°Р»СЊРЅР°)
         }
 
         for (int y = 0; y < WIDTH * SCALE; y += SCALE) {
-            g.setColor(Color.LIGHT_GRAY); // цвет полоски
-            g.drawLine(0, y, WIDTH * SCALE, y);// малюе полосу вниз по y(horizontal)
+            g.setColor(Color.LIGHT_GRAY); // С†РІРµС‚ РїРѕР»РѕСЃРєРё
+            g.drawLine(0, y, WIDTH * SCALE, y);// РјР°Р»СЋРµ РїРѕР»РѕСЃСѓ РІРЅРёР· РїРѕ y(horizontal)
         }
     }
 
-    //зупиняє гру коли закінчуються життя і починає заново після натискання кнопки ОК
+    //Р·СѓРїРёРЅСЏС” РіСЂСѓ РєРѕР»Рё Р·Р°РєС–РЅС‡СѓСЋС‚СЊСЃСЏ Р¶РёС‚С‚СЏ С– РїРѕС‡РёРЅР°С” Р·Р°РЅРѕРІРѕ РїС–СЃР»СЏ РЅР°С‚РёСЃРєР°РЅРЅСЏ РєРЅРѕРїРєРё РћРљ
     void stopGame() {
         timer.stop();
-        JOptionPane.showMessageDialog(null, "Вы проиграли, почати знову?");
+        JOptionPane.showMessageDialog(null, "Р’С‹ РїСЂРѕРёРіСЂР°Р»Рё, РїРѕС‡Р°С‚Рё Р·РЅРѕРІСѓ?");
         jFrame.setVisible(false);
         s.length = 3;
         s.direction = (int) (Math.random() * 3);
@@ -111,43 +111,43 @@ public class MainWindow extends JPanel implements ActionListener {
     }
 
     public static void main(String[] args) {
-        jFrame = new JFrame("Коля і Катато");//Заголовок программи
-        jFrame.setSize(WIDTH * SCALE + 15, HEIGHT * SCALE + 63); // розмір вікна
-        jFrame.setResizable(false); //розтягування вікна
-        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // нажати на хрестик і закрити грк
-        jFrame.setLocationRelativeTo(null); // місце відкритого вікна по центру
-        jFrame.add(new MainWindow());//додали конструктор головного класа
-        jFrame.setVisible(true); // вікно видиме поверх всіх інших
+        jFrame = new JFrame("РљРѕР»СЏ С– РљР°С‚Р°С‚Рѕ");//Р—Р°РіРѕР»РѕРІРѕРє РїСЂРѕРіСЂР°РјРјРё
+        jFrame.setSize(WIDTH * SCALE + 15, HEIGHT * SCALE + 63); // СЂРѕР·РјС–СЂ РІС–РєРЅР°
+        jFrame.setResizable(false); //СЂРѕР·С‚СЏРіСѓРІР°РЅРЅСЏ РІС–РєРЅР°
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // РЅР°Р¶Р°С‚Рё РЅР° С…СЂРµСЃС‚РёРє С– Р·Р°РєСЂРёС‚Рё РіСЂРє
+        jFrame.setLocationRelativeTo(null); // РјС–СЃС†Рµ РІС–РґРєСЂРёС‚РѕРіРѕ РІС–РєРЅР° РїРѕ С†РµРЅС‚СЂСѓ
+        jFrame.add(new MainWindow());//РґРѕРґР°Р»Рё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РіРѕР»РѕРІРЅРѕРіРѕ РєР»Р°СЃР°
+        jFrame.setVisible(true); // РІС–РєРЅРѕ РІРёРґРёРјРµ РїРѕРІРµСЂС… РІСЃС–С… С–РЅС€РёС…
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //рух змійки
+        //СЂСѓС… Р·РјС–Р№РєРё
         s.move();
         if ((s.sX[0] == apple.posX) && (s.sY[0] == apple.posY)) {
             apple.setRandomPosition();
             s.length++;
         }
 
-        //якщо яблуко на змійцi то створює нове яблуко
+        //СЏРєС‰Рѕ СЏР±Р»СѓРєРѕ РЅР° Р·РјС–Р№С†i С‚Рѕ СЃС‚РІРѕСЂСЋС” РЅРѕРІРµ СЏР±Р»СѓРєРѕ
         for (int l = 1; l < s.length; l++) {
             if ((s.sX[l] == apple.posX) && (s.sY[l] == apple.posY)) {
                 apple.setRandomPosition();
             }
 
-        //якщо стикається сама з собою то мінус одне життя
+        //СЏРєС‰Рѕ СЃС‚РёРєР°С”С‚СЊСЃСЏ СЃР°РјР° Р· СЃРѕР±РѕСЋ С‚Рѕ РјС–РЅСѓСЃ РѕРґРЅРµ Р¶РёС‚С‚СЏ
             if ((s.sX[0] == s.sX[l]) && (s.sY[0] == s.sY[l])) {
                 s.life--;
-            //якщо менше 0 життів
+            //СЏРєС‰Рѕ РјРµРЅС€Рµ 0 Р¶РёС‚С‚С–РІ
                 if (s.life < 0) {
                     stopGame();
                 }
             }
         }
-        repaint();// перемальовує змійку кожен раз
+        repaint();// РїРµСЂРµРјР°Р»СЊРѕРІСѓС” Р·РјС–Р№РєСѓ РєРѕР¶РµРЅ СЂР°Р·
     }
 
-    // зміна напрямку руху при натисканні на кнопки
+    // Р·РјС–РЅР° РЅР°РїСЂСЏРјРєСѓ СЂСѓС…Сѓ РїСЂРё РЅР°С‚РёСЃРєР°РЅРЅС– РЅР° РєРЅРѕРїРєРё
     public class KeyBoard extends KeyAdapter {
         public void keyPressed(KeyEvent event) {
             int key = event.getKeyCode();
