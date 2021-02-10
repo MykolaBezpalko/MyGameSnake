@@ -23,7 +23,7 @@ public class MainWindow extends JPanel implements ActionListener {
 
     public static JFrame jFrame;
 
-    public static final int SCALE = 26; // розмер клеточки
+    public static final int SCALE = 26; // розмір клітинки
     public static final int WIDTH = 25; // скільки клітинок по ширині вікна
     public static final int HEIGHT = 25; // скільки клітинок по висоті вікна
     public Image d;
